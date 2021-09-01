@@ -3,3 +3,4 @@ repository:
   name: terraform-github-check-action
   description: Creates a GitHub check displaying a Terraform plan
   topics: terraform, github, github-action
+  private: false

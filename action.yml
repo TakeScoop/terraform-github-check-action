@@ -29,7 +29,7 @@ runs:
     - name: Add GitHub Check
       uses: LouisBrunner/checks-action@v1.1.1
       with:
-        token: ${{ inputs.github_token }}
-        name: ${{ inputs.name }}
-        conclusion: ${{ job.status }}
+        token: "${{ inputs.github_token }}"
+        name: "${{ inputs.name }} Plan"
+        conclusion: "${{ job.status }}"
         output: "${{ steps.github-check-body.outputs.result }}"
