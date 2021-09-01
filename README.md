@@ -4,7 +4,7 @@ Creates a GitHub check displaying a Terraform plan.
 
 ## Usage
 
-```
+```yaml
 jobs:
   terraform:
     runs-on: ubuntu-latest
