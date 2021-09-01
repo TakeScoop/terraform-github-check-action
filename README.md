@@ -19,7 +19,7 @@ jobs:
       - uses: TakeScoop/terraform-github-check-action
         name: Create GitHub Check
         with:
-          github_token: "${{ secrets.GH_TOKEN }}"
+          github_token: "${{ secrets.GITHUB_TOKEN }}"
           name: Terraform Cloud Workspace
           plan: "${{ steps.terraform.outputs.plan }}"
 ```
