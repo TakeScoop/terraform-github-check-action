@@ -16,30 +16,17 @@ runs:
     - name: Prepare GitHub Check Request
       id: github-check-body
       run: |
-        set -x
-        echo ########
-
-        for f in /home/runner/work/_temp/*.sh ; do 
-          cat $f
-        done
-
-        echo ########
-
         plan=$(cat << EOF
         ${{ inputs.plan }}
         EOF
         )
 
-        echo ########
-
-        jq --null-input '{
+        result=$(jq --null-input '{
           "title": "${{ inputs.name }} Plan",
           "summary": "Changes planned for ${{ inputs.name }}"
-        }' | jq -cM --arg plan "$plan" '. + { text_description: $plan }'
+        }' | jq -cM --arg plan "$plan" '. + { text_description: $plan }')
 
-        echo ########
-        
-        echo "::set-output name=result::result"
+        echo "::set-output name=result::$result"
       shell: bash
     - name: Add GitHub Check
       uses: LouisBrunner/checks-action@v1.1.1
