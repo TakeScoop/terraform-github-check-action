@@ -17,20 +17,28 @@ runs:
       id: github-check-body
       run: |
         set -x
+        echo ########
 
         for f in /home/runner/work/_temp/*.sh ; do 
           cat $f
         done
 
-        echo "${{ inputs.plan }}" > /tmp/plan
+        echo ########
 
-        jq -nrcM --arg plan "$(cat /tmp/plan)" '. + { text_description: $plan }'
+        plan=$(cat << EOF
+        ${{ inputs.plan }}
+        EOF
+        )
+
+        echo ########
 
         jq --null-input '{
           "title": "${{ inputs.name }} Plan",
           "summary": "Changes planned for ${{ inputs.name }}"
-        }' | jq -cM --arg plan "$(cat /tmp/plan)" '. + { text_description: $plan }'
+        }' | jq -cM --arg plan "$plan" '. + { text_description: $plan }'
 
+        echo ########
+        
         echo "::set-output name=result::result"
       shell: bash
     - name: Add GitHub Check
