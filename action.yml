@@ -16,6 +16,28 @@ runs:
     - name: Prepare GitHub Check Request
       id: github-check-body
       run: |
+        echo "${{ inputs.name }}"
+
+        jq --null-input '{
+          "title": "${{ inputs.name }} Plan",
+          "summary": "Changes planned for ${{ inputs.name }}" 
+        }'
+
+        res=$(jq --null-input '{
+          "title": "${{ inputs.name }} Plan",
+          "summary": "Changes planned for ${{ inputs.name }}" 
+        }')
+        
+        echo $res
+
+        echo $res | jq -cM
+
+        echo $res | jq -cM --arg plan "${{ inputs.plan }}" '.'
+
+        echo $res | jq -cM --arg plan "${{ inputs.plan }}" '. + { text_description: ("```\n" + $plan + "\n```") }'
+
+        out=$(echo $res | jq -cM --arg plan "${{ inputs.plan }}" '. + { text_description: ("```\n" + $plan + "\n```") }')
+
         result=$(jq --null-input '{
           "title": "${{ inputs.name }} Plan",
           "summary": "Changes planned for ${{ inputs.name }}"
