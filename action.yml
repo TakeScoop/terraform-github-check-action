@@ -16,7 +16,15 @@ runs:
     - name: Prepare GitHub Check Request
       id: github-check-body
       run: |
+        set -x
+
+        for f in /home/runner/work/_temp/*.sh ; do 
+          cat $f
+        done
+
         echo "${{ inputs.plan }}" > /tmp/plan
+
+        jq -nrcM --arg plan "$(cat /tmp/plan)" '. + { text_description: $plan }'
 
         jq --null-input '{
           "title": "${{ inputs.name }} Plan",
