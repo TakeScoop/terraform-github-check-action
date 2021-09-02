@@ -21,15 +21,7 @@ runs:
           "summary": "Changes planned for ${{ inputs.name }}"
         }' | jq -cM --arg plan "${{ inputs.plan }}" '. + { text_description: $plan }'
 
-        result=$(jq --null-input '{
-          "title": "${{ inputs.name }} Plan",
-          "summary": "Changes planned for ${{ inputs.name }}"
-        }' | jq \
-          --compact-output \
-          --monochrome-output \
-          --arg plan "${{ inputs.plan }}" \
-          '. + { text_description: ("```\n" + $plan + "\n```") }')
-        echo "::set-output name=result::$result"
+        echo "::set-output name=result::result"
       shell: bash
     - name: Add GitHub Check
       uses: LouisBrunner/checks-action@v1.1.1
