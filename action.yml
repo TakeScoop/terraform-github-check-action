@@ -16,16 +16,12 @@ runs:
     - name: Prepare GitHub Check Request
       id: github-check-body
       run: |
-        ls /home/runner/work/_temp/
-
-        for f in /home/runner/work/_temp/* ; do
-          cat $f
-        done
+        echo "${{ inputs.plan }}" > /tmp/plan
 
         jq --null-input '{
           "title": "${{ inputs.name }} Plan",
           "summary": "Changes planned for ${{ inputs.name }}"
-        }' | jq -cM --arg plan "${{ inputs.plan }}" '. + { text_description: $plan }'
+        }' | jq -cM --arg plan "$(cat /tmp/plan)" '. + { text_description: $plan }'
 
         echo "::set-output name=result::result"
       shell: bash
