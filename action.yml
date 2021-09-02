@@ -24,7 +24,11 @@ runs:
         result=$(jq --null-input '{
           "title": "${{ inputs.name }} Plan",
           "summary": "Changes planned for ${{ inputs.name }}"
-        }' | jq -cM --arg plan "$plan" '. + { text_description: ("```\n" + $plan + "\n```") }')
+        }' | jq \
+          --compact-output \
+          --monochrome-output \
+          --arg plan "${{ inputs.plan }}" \
+          '. + { text_description: ("```\n" + $plan + "\n```") }')
 
         echo "::set-output name=result::$result"
       shell: bash
