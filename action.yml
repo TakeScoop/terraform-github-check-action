@@ -23,7 +23,7 @@ runs:
           --compact-output \
           --monochrome-output \
           --arg plan '${{ inputs.plan }}' \
-          '. + { text_description: ("```yaml\n" + $plan + "\n```") }')
+          '. + { text_description: ("```terraform\n" + $plan + "\n```") }')
 
         echo "::set-output name=result::$result"
       shell: bash
