@@ -15,6 +15,8 @@ runs:
   steps:
     - name: Prepare GitHub Check Request
       id: github-check-body
+      env:
+        PLAN: "${{ inputs.plan }}"
       run: |
         result=$(jq --null-input '{
           "title": "${{ inputs.name }} Plan",
@@ -22,7 +24,7 @@ runs:
         }' | jq \
           --compact-output \
           --monochrome-output \
-          --arg plan '${{ inputs.plan }}' \
+          --arg plan "$PLAN" \
           '. + { text_description: ("```terraform\n" + $plan + "\n```") }')
 
         echo "::set-output name=result::$result"
