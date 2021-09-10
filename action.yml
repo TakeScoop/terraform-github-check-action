@@ -22,11 +22,13 @@ runs:
         }' | jq \
           --compact-output \
           --monochrome-output \
-          --arg plan '${{ inputs.plan }}' \
+          --arg plan "$TERRAFORM_PLAN" \
           '. + { text_description: ("```terraform\n" + $plan + "\n```") }')
 
         echo "::set-output name=result::$result"
       shell: bash
+      env:
+        TERRAFORM_PLAN: ${{ inputs.plan }}
     - name: Add GitHub Check
       uses: LouisBrunner/checks-action@v1.1.1
       with:
