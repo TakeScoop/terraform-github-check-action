@@ -6,7 +6,8 @@ inputs:
     required: true
   name:
     description: GitHub check name
-    required: true
+    required: false
+    default: Terraform Plan
   github_token:
     description: GitHub token
     required: true
@@ -33,6 +34,6 @@ runs:
       uses: LouisBrunner/checks-action@v1.1.1
       with:
         token: "${{ inputs.github_token }}"
-        name: "${{ inputs.name }} Plan"
+        name: "${{ inputs.name }}"
         conclusion: "${{ job.status }}"
         output: "${{ steps.github-check-body.outputs.result }}"
