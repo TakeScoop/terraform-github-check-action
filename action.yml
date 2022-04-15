@@ -6,7 +6,7 @@ inputs:
     required: true
   name:
     description: GitHub check name
-    required: true
+    required: false
     default: Terraform Plan
   github_token:
     description: GitHub token
