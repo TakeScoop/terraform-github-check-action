@@ -1,5 +1,7 @@
 # terraform-github-check-action
 
+**Deprecated:** Terraform plans can be included in [GitHub Actions job summaries](https://github.blog/2022-05-09-supercharging-github-actions-with-job-summaries/).
+
 Creates a GitHub check displaying a Terraform plan.
 
 ## Usage
