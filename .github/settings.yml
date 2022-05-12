@@ -4,3 +4,4 @@ repository:
   description: Creates a GitHub check displaying a Terraform plan
   topics: terraform, github, github-action
   private: false
+  archived: true
